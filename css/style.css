@@ -1,0 +1,462 @@
+/* ==========================================================
+   OreNo Kanban – base styles (light theme + layout)
+   Dark theme overrides live in style-dark.css
+   ========================================================== */
+
+/* ---------- Reset ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------- Design tokens ---------- */
+:root {
+    --bg: rgb(244 245 247);
+    --surface: rgb(255 255 255);
+    --surface-alt: rgb(236 238 242);
+    --border: rgb(214 218 226);
+    --text: rgb(27 31 42);
+    --text-muted: rgb(96 104 122);
+    --accent: rgb(37 99 235);
+    --accent-hover: rgb(29 78 216);
+    --accent-contrast: rgb(255 255 255);
+    --danger: rgb(220 38 38);
+    --danger-hover: rgb(185 28 28);
+    --focus-ring: rgb(37 99 235 / 0.45);
+    --backdrop: rgb(15 23 42 / 0.5);
+    --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.08);
+    --shadow-md: 0 6px 18px rgb(15 23 42 / 0.12);
+
+    --space-1: 0.4rem;
+    --space-2: 0.8rem;
+    --space-3: 1.2rem;
+    --space-4: 1.6rem;
+    --space-5: 2.4rem;
+    --radius-sm: 0.6rem;
+    --radius-md: 1rem;
+    --column-width: 28rem;
+    --transition: 150ms ease;
+
+    color-scheme: light;
+}
+
+/* ---------- Base ---------- */
+html {
+    font-size: 62.5%;
+}
+
+body {
+    min-height: 100dvh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+h1, h2, h3, h4 {
+    line-height: 1.25;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ---------- Form controls ---------- */
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+textarea {
+    min-height: 9rem;
+    resize: vertical;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    accent-color: var(--accent);
+}
+
+label {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+:is(input, select, textarea):focus-visible,
+:is(button, .task-card):focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+/* ---------- Buttons ---------- */
+button {
+    padding: var(--space-2) var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition), border-color var(--transition),
+                transform var(--transition);
+}
+
+button:hover:not(:disabled) {
+    background: var(--surface-alt);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Primary actions */
+:is(#create-board-button, #add-column-button, #task-search-button,
+    #create-board-submit-button, #add-column-submit-button, #task-save-button) {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-contrast);
+}
+
+:is(#create-board-button, #add-column-button, #task-search-button,
+    #create-board-submit-button, #add-column-submit-button, #task-save-button):hover:not(:disabled) {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+/* Destructive action */
+.delete-task-button {
+    color: var(--danger);
+}
+
+.delete-task-button:hover:not(:disabled) {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: var(--accent-contrast);
+}
+
+/* ---------- Page header ---------- */
+#kanban-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) clamp(1.6rem, 4vw, 4rem);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#app-title {
+    font-size: 2.4rem;
+    letter-spacing: -0.02em;
+}
+
+/* ---------- Page layout ---------- */
+.body-content {
+    display: grid;
+    grid-template-columns: minmax(24rem, 30rem) minmax(0, 1fr);
+    grid-template-areas:
+        "boards board"
+        "tools  board";
+    align-items: start;
+    gap: var(--space-5);
+    padding: var(--space-5) clamp(1.6rem, 4vw, 4rem);
+}
+
+.boards-section   { grid-area: boards; }
+.task-tools-section { grid-area: tools; }
+.board-section    { grid-area: board; min-width: 0; }
+
+.boards-section,
+.task-tools-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.boards-section h2,
+.task-tools-section h2 {
+    font-size: 1.8rem;
+}
+
+/* ---------- Board list ---------- */
+#board-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.board-select-button {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border-color: transparent;
+}
+
+.board-select-button[aria-current="true"],
+.board-select-button.active {
+    background: var(--accent);
+    color: var(--accent-contrast);
+}
+
+/* ---------- Task tools ---------- */
+#task-search-form,
+#task-sort-form {
+    display: grid;
+    gap: var(--space-1);
+}
+
+#task-search-form button {
+    margin-top: var(--space-1);
+}
+
+#task-filter-fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1) var(--space-3);
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+#task-filter-legend {
+    padding-inline: var(--space-1);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+#undo-button,
+#redo-button {
+    width: calc(50% - var(--space-2));
+}
+
+.task-tools-section {
+    flex-flow: row wrap;
+}
+
+.task-tools-section > :is(h2, form) {
+    flex: 1 1 100%;
+}
+
+/* ---------- Board / columns ---------- */
+.board-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+#current-board-name {
+    font-size: 2.4rem;
+}
+
+#add-column-button {
+    align-self: flex-start;
+}
+
+#column-list {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding-bottom: var(--space-3);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+}
+
+.column {
+    flex: 0 0 var(--column-width);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    scroll-snap-align: start;
+}
+
+.column-name {
+    font-size: 1.7rem;
+    padding-inline: var(--space-1);
+}
+
+.add-task-button {
+    width: 100%;
+}
+
+/* ---------- Task cards ---------- */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    min-height: 6rem;           /* keeps empty columns droppable */
+    padding: var(--space-1);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition);
+}
+
+/* Optional hook for JS drag-over feedback */
+.task-list.drag-over {
+    background: var(--focus-ring);
+}
+
+.task-card {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    cursor: grab;
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.task-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.task-card:active,
+.task-card.dragging {
+    cursor: grabbing;
+}
+
+.task-card.dragging {
+    opacity: 0.5;
+}
+
+.task-title {
+    font-size: 1.6rem;
+    overflow-wrap: anywhere;
+}
+
+.task-description {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    overflow-wrap: anywhere;
+}
+
+.task-priority,
+.task-deadline {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.edit-task-button,
+.delete-task-button {
+    padding: var(--space-1) var(--space-3);
+    font-size: 1.3rem;
+}
+
+/* Edit + Delete sit side by side */
+.task-card :is(.edit-task-button, .delete-task-button) {
+    justify-self: start;
+}
+
+/* ---------- Dialogs ---------- */
+dialog {
+    width: min(92vw, 44rem);
+    margin: auto;
+    padding: var(--space-5);
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+
+dialog::backdrop {
+    background: var(--backdrop);
+    backdrop-filter: blur(2px);
+}
+
+dialog[open] {
+    animation: dialog-in 160ms ease-out;
+}
+
+dialog h2 {
+    margin-bottom: var(--space-4);
+    font-size: 2rem;
+}
+
+dialog form {
+    display: grid;
+    gap: var(--space-2);
+}
+
+dialog form > :is(button) {
+    margin-top: var(--space-1);
+}
+
+dialog label:not(:first-child) {
+    margin-top: var(--space-2);
+}
+
+@keyframes dialog-in {
+    from { opacity: 0; transform: translateY(0.8rem); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .body-content {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "boards"
+            "tools"
+            "board";
+        gap: var(--space-4);
+    }
+
+    .column {
+        flex-basis: min(80vw, var(--column-width));
+    }
+}
+
+@media (max-width: 480px) {
+    #kanban-header {
+        padding-block: var(--space-3);
+    }
+
+    #app-title {
+        font-size: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

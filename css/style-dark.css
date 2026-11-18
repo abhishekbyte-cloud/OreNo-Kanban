@@ -1,0 +1,32 @@
+/* ==========================================================
+   OreNo Kanban – dark theme
+   Only overrides design tokens; applied when #root-html has
+   the "dark-theme" class (toggled by JavaScript).
+   ========================================================== */
+
+#root-html.dark-theme {
+    --bg: rgb(15 17 23);
+    --surface: rgb(24 27 36);
+    --surface-alt: rgb(32 36 48);
+    --border: rgb(52 58 74);
+    --text: rgb(232 235 242);
+    --text-muted: rgb(152 160 178);
+    --accent: rgb(96 140 250);
+    --accent-hover: rgb(129 166 252);
+    --accent-contrast: rgb(10 14 26);
+    --danger: rgb(248 113 113);
+    --danger-hover: rgb(252 165 165);
+    --focus-ring: rgb(129 166 252 / 0.5);
+    --backdrop: rgb(0 0 0 / 0.65);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 8px 22px rgb(0 0 0 / 0.5);
+
+    color-scheme: dark;
+}
+
+/* Danger hover needs dark text on the lighter red */
+#root-html.dark-theme .delete-task-button:hover:not(:disabled) {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: rgb(30 10 10);
+}

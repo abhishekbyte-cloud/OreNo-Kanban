@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html" class="dark-theme">
+<head id="document-head">
+    <meta charset="UTF-8" id="charset-meta">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <title id="document-title">OreNo</title>
+    <link rel="stylesheet" href="style.css" id="base-stylesheet">
+    <link rel="stylesheet" href="style-dark.css" id="dark-stylesheet">
+</head>
+<body id="document-body">
+
+    <!-- ===================== PART 1: MAIN HTML CONTENT ===================== -->
+    <main id="kanban-main">
+        <header id="kanban-header">
+            <h1 id="app-title">Kanban</h1>
+            <!-- JavaScript toggles the "dark-theme" class on #root-html -->
+            <button type="button" id="toggle-theme-button">Da   rk Mode</button>
+        </header>
+
+        <div class="body-content" id="body-content">
+
+            <section class="boards-section" id="boards-section">
+                <h2 id="boards-heading">Boards</h2>
+                <!-- Rendered by JavaScript: renderBoards() -->
+                <ul id="board-list"></ul>
+                <button type="button" id="create-board-button">Create Board</button>
+            </section>
+
+            <section class="task-tools-section" id="task-tools-section">
+                <h2 id="task-tools-heading">Task tools</h2>
+
+                <form id="task-search-form">
+                    <label for="task-search-input" id="task-search-label">Search tasks</label>
+                    <input type="search" id="task-search-input" name="task-search" placeholder="Enter a search term">
+                    <button type="submit" id="task-search-button">Search</button>
+                </form>
+
+                <form id="task-sort-form">
+                    <label for="task-sort-select" id="task-sort-label">Sort by</label>
+                    <select id="task-sort-select" name="task-sort">
+                        <option value="default" id="task-sort-default-option">Default order</option>
+                        <option value="date" id="task-sort-date-option">Date</option>
+                        <option value="priority" id="task-sort-priority-option">Priority</option>
+                    </select>
+                </form>
+
+                <form id="task-filter-form">
+                    <fieldset id="task-filter-fieldset">
+                        <legend id="task-filter-legend">Filter tasks</legend>
+                        <input type="checkbox" id="filter-high-priority-checkbox" name="filter-high-priority">
+                        <label for="filter-high-priority-checkbox" id="filter-high-priority-label">High priority</label>
+                        <input type="checkbox" id="filter-overdue-checkbox" name="filter-overdue">
+                        <label for="filter-overdue-checkbox" id="filter-overdue-label">Overdue</label>
+                    </fieldset>
+                </form>
+
+                <button type="button" id="undo-button" disabled>Undo</button>
+                <button type="button" id="redo-button" disabled>Redo</button>
+            </section>
+
+            <section class="board-section" id="board-section">
+                <h2 id="current-board-name"></h2>
+                <button type="button" id="add-column-button">Add Column</button>
+                <!-- Rendered by JavaScript: renderColumns() and renderTasks() -->
+                <ul id="column-list"></ul>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ========================= PART 2: DIALOGUES ========================= -->
+    <section class="dialogues-section" id="dialogues-section">
+
+        <dialog id="create-board-dialog">
+            <h2 id="create-board-dialog-heading">Create board</h2>
+            <form id="create-board-form">
+                <label for="board-name-input" id="board-name-label">Board name</label>
+                <input type="text" id="board-name-input" name="board-name" placeholder="e.g. Website Development" maxlength="50" required>
+                <button type="submit" id="create-board-submit-button">Create board</button>
+                <button type="button" id="create-board-cancel-button">Cancel</button>
+            </form>
+        </dialog>
+
+        <dialog id="add-column-dialog">
+            <h2 id="add-column-dialog-heading">Add column</h2>
+            <form id="add-column-form">
+                <label for="column-name-input" id="column-name-label">Column name</label>
+                <input type="text" id="column-name-input" name="column-name" placeholder="e.g. In Progress" maxlength="30" required>
+                <button type="submit" id="add-column-submit-button">Add column</button>
+                <button type="button" id="add-column-cancel-button">Cancel</button>
+            </form>
+        </dialog>
+
+        <!-- One dialog for both creating and editing a task; JavaScript sets the heading and fills the fields -->
+        <dialog id="task-dialog">
+            <h2 id="task-dialog-heading">Add task</h2>
+            <form id="task-form">
+                <label for="task-title-input" id="task-title-label">Title</label>
+                <input type="text" id="task-title-input" name="task-title" maxlength="100" required>
+
+                <label for="task-description-input" id="task-description-label">Description</label>
+                <textarea id="task-description-input" name="task-description" maxlength="500"></textarea>
+
+                <label for="task-priority-select" id="task-priority-label">Priority</label>
+                <select id="task-priority-select" name="task-priority" required>
+                    <option value="high" id="task-priority-high-option">High</option>
+                    <option value="medium" id="task-priority-medium-option" selected>Medium</option>
+                    <option value="low" id="task-priority-low-option">Low</option>
+                </select>
+
+                <label for="task-deadline-input" id="task-deadline-label">Deadline</label>
+                <input type="date" id="task-deadline-input" name="task-deadline">
+
+                <button type="submit" id="task-save-button">Save task</button>
+                <button type="button" id="task-cancel-button">Cancel</button>
+            </form>
+        </dialog>
+
+    </section>
+
+    <script type="module" src="./components/createBtns.js"></script>
+    <script type="module" src="./components/themeToggle.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

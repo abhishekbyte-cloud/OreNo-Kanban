@@ -1,0 +1,110 @@
+# Kanban: Features in Detail
+
+Kanban is a visual project and task management application built using HTML, CSS, and JavaScript.
+
+## 1. Core features
+
+**1. Board Management**
+- Create multiple boards to manage different projects using the "Create Board" button.
+- Each board represents a separate project and has its own columns and tasks.
+- A board has a name, such as "Website Development", "Mobile App", or "Learning Roadmap".
+- Creating a board gives it its own workspace for organizing tasks.
+- Board name requirements, maximum length, and empty-name behavior are not specified yet.
+
+**2. Column Management**
+- Create multiple columns inside each board to represent different stages of work.
+- Each column has a customizable name.
+- Example column names: "To Do", "In Progress", "Testing", and "Completed".
+- Different boards can have different column names and workflows.
+- Each column contains its own task cards.
+- Column name limits, maximum number of columns, and empty-name behavior are not specified yet.
+
+**3. Task Management (CRUD)**
+- Create new tasks and display them as cards inside a board's columns.
+- Edit existing tasks to change their title, description, deadline, or other available details.
+- Delete tasks when they are no longer needed.
+- Task fields include a title, description, priority, and deadline.
+- Required fields, maximum text lengths, and default values are not specified yet.
+- Creating, editing, or deleting a task updates the corresponding board.
+
+**4. Drag and Drop**
+- Move task cards between columns by dragging and dropping them.
+- Moving a card changes the task's status without changing its actual details.
+- A task can move from "To Do" to "In Progress" and eventually to "Done".
+- Keyboard alternative: press Space to pick up a card, use arrow keys to move it, press Space again to drop it, or press Escape to cancel.
+- Moving a task updates its column and the board's current state.
+- Behavior when dropping outside a column or reordering tasks within the same column is not specified yet.
+
+**5. Task Priorities**
+- Assign a priority to each task.
+- Available priority levels are High, Medium, and Low.
+- The selected priority is displayed on the task card.
+- Priority information can be used when sorting and filtering tasks.
+- Whether priority is required or has a default value is not specified yet.
+
+**6. Task Deadlines**
+- Assign a completion date to a task.
+- The deadline represents when the task should be completed.
+- Tasks can be sorted by date.
+- Overdue tasks can be identified using the filtering feature.
+- Deadline format, whether the field is required, and behavior for past dates are not specified yet.
+
+## 2. Added features
+
+**1. Task Search**
+- Search for a particular task instead of manually looking through every card.
+- The user can enter a search term to find matching tasks.
+- Search matching rules and whether the search applies to the current board or all boards are not specified yet.
+- What happens when no matching tasks are found is not specified yet.
+
+**2. Task Sorting**
+- Arrange tasks according to different criteria.
+- Available sorting criteria include date and priority.
+- Priority sorting uses High, Medium, and Low.
+- Sorting changes the order in which task cards are displayed without changing their details or status.
+- Sorting direction and default sorting order are not specified yet.
+
+**3. Task Filtering**
+- Display only tasks matching selected conditions.
+- Filter tasks by High priority.
+- Filter tasks to show only overdue items.
+- Filtering changes which task cards are visible without deleting or modifying them.
+- Whether multiple filters can be applied together and what happens when no tasks match are not specified yet.
+
+**4. Local Storage**
+- Save application data in the browser's LocalStorage.
+- Tasks and their associated board information should remain available after refreshing the page.
+- Changes such as moving a task between columns should also be saved.
+- Updating the application data, saving it, and displaying the updated board should happen together.
+- Clearing browser storage removes the locally saved data.
+
+**5. Custom Modal**
+- Display a custom popup when creating or editing a task.
+- The popup contains the available task fields, such as title, description, priority, and deadline.
+- The user can enter new task information or modify existing information.
+- Saving applies the changes to the task and updates its card.
+- Field validation, required fields, maximum lengths, and cancel behavior are not specified yet.
+
+**6. Undo and Redo**
+- Undo reverses a previous application change.
+- Redo restores a change that was previously undone.
+- These actions allow the user to correct accidental changes.
+- The exact changes covered by history, history limit, and behavior when no further undo or redo is available are not specified yet.
+
+**7. Responsive Design**
+- Make the application usable on desktop, tablet, and mobile screens.
+- Adjust the Kanban board layout to fit different screen sizes.
+- Keep task cards and columns usable on smaller screens.
+- The exact breakpoints and mobile layout behavior are not specified yet.
+
+## 3. Branding
+
+- Application name: Kanban.
+- No specific logo, icon, theme, or color palette has been selected yet.
+- Branding can remain minimal until a visual theme is decided.
+
+## 4. Not included
+
+- No specific feature exclusions have been provided in the project notes.
+- LocalStorage is included, so saving application data after refreshing the page is part of the application.
+- No additional features outside the listed requirements are included in the current scope.
